@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>課程訂單</title>
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
+</head>
+<body class="adminbody">
+	<div id="main">
+		<div th:replace="~{layout/navbar}"></div>
+		<div class="content-page">
+
+			<!-- Start content -->
+			<div class="content">
+
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-xl-12">
+							<div class="breadcrumb-holder">
+								<h1 class="main-title float-left"><b>課程訂單</b></h1>
+								<ol class="breadcrumb float-right">
+									<li class="breadcrumb-item">課程</li>
+									<li class="breadcrumb-item active">課程訂單</li>
+								</ol>
+								<div class="clearfix"></div>
+							</div>
+						</div>
+					</div>
+
+					<!-- 					-------------------------內文-------------------------------------------------------------- -->
+					<div class="row">
+						<div class="col-md-12"
+							style="text-align: center; justify-content: center; align-content: center;">
+							<a class="display-4" style="margin: 0 auto;"><b>訂單</b></a>
+						</div>
+					</div>
+
+					<table id="myTable" class="display">
+						<thead>
+							<tr>
+								<th>訂單編號</th>
+								<th>會員編號</th>
+								<th>課程名稱</th>
+								<th>付款狀態</th>
+								<th>購買時間</th>
+								<th>更新時間</th>
+								<th style="width:60px">購買數量</th>
+								<th style="width:100px">訂單總金額</th>
+								<th>訂單狀態</th>
+								<th>更新</th>
+								<th>刪除</th>
+							</tr>
+						</thead>
+						<tbody id="alltable">
+							<th:block th:each="corder:${corders}"th:with="i=${corder.corderState}">
+								<tr>
+									<td th:text="${corder.corderId}"></td>
+									<td><button class="btn btn-outline-primary btn-sm"
+											th:onclick="memberModal([[${corder.userId}]])">
+											<div data-toggle="modal" data-target="#allmember"
+												th:text="${corder.userId}"></div>
+										</button></td>
+									<td th:text="${corder.course.courseName}"></td>
+									<td th:text="${corder.corderPayment}"></td>
+									<td th:text="${corder.corderTime}"></td>
+									<td th:text="${corder.corderUpdateTime}"></td>
+									<td><input th:id="${corder.corderId}" class="form-control"type="number" min="1"name="corderQuantity" th:value="${corder.corderQuantity}" disabled></td>
+<!-- 									<div th:id="${corder.corderId}"> -->
+<!-- 											<a th:text="${corder.corderQuantity}" -->
+<!-- 												th:id="'corderQuantity-'+${corder.corderId}"></a> -->
+<!-- 										</div> -->
+									<td><input th:id="'corderCost-'+${corder.corderId}"class="form-control " th:value="${corder.corderCost}" disabled></td>
+									<td><p th:style="${i==0?'color:black':'color:red'}" th:text="${i==0?'完成':'待修改'}"> </p></td>
+									<td class="updatebtn"><button
+											class="btn btn-outline-primary btn-sm"
+											th:id="'updatebtn-'+${corder.corderId}"
+											th:onclick="updateCorderBtn([[${corder.corderId}]])">
+											更新</button>
+									<input type="hidden" th:id="'courseCost-'+${corder.corderId}" th:value="${corder.course.courseCost}">
+										<button class="btn btn-outline-primary btn-sm"
+											th:id="'updateclick-'+${corder.corderId}" th:onclick="updateCorder([[${corder.corderId}]])" style="display:none;">提交</button>
+									</td>
+									<td class="deletebtn">
+										<button type="button"
+											class="btn btn-outline-danger btn-sm deletechbtn"
+											name="coachId"
+											th:onclick="deletecorder([[${corder.corderId}]])">刪除</button>
+									</td>
+								</tr>
+							</th:block>
+						</tbody>
+					</table>
+
+				</div>
+				<!-- END container-fluid -->
+
+			</div>
+			<!-- END content -->
+
+		</div>
+		<!-- END content-page -->
+		<div th:replace="~{layout/footer}"></div>
+
+		<!------------- 會員彈跳視窗 ----------------------------------------------------------------------------------->
+		<!------------- 會員彈跳視窗 ----------------------------------------------------------------------------------->
+		<!------------- 會員彈跳視窗 ----------------------------------------------------------------------------------->
+		<div class="modal fade" id="allmember" tabindex="-1" role="dialog"
+			aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+				<div class="modal-content">
+					<div class="modal-header justify-content-center position-relative">
+						<h5 class="modal-title" id="exampleModalLongTitle">
+							<a id="memberName"></a>
+						</h5>
+						<button type="button" class="close ml-0 position-absolute"
+							data-dismiss="modal" style="right: 20px" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<!----- 會員Card ---------->
+						<div id="membertable"></div>
+
+
+						<!-----會員Card_End ------->
+					</div>
+					<div class="modal-footer d-flex justify-content-center">
+						<button type="button" class="btn btn-secondary"
+							data-dismiss="modal">確定</button>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+		<script
+			src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
+		<script>let table = new DataTable('#myTable');</script>
+		<script th:src="@{http://localhost:8080/gymlife/JS/axios.min.js}"></script>
+		<script th:src="@{/gym/course/back/selectAllCorder.js}"></script>
+		<script th:src="@{http://localhost:8080/gymlife/gym/course/back/websocketcall.js}"></script>
+	</div>
+</body>
+</html>
