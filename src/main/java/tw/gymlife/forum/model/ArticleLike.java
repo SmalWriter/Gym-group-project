@@ -30,6 +30,8 @@ public class ArticleLike {
   @ManyToOne
   @JoinColumn(name = "articleId")
   private ArticleBean article;
+
+
   
   
 }
