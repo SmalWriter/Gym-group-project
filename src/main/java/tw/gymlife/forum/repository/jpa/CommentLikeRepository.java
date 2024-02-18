@@ -1,4 +1,4 @@
-package tw.gymlife.forum.model;
+package tw.gymlife.forum.repository.jpa;
 
 import java.util.List;
 
@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import jakarta.persistence.LockModeType;
 import jakarta.transaction.Transactional;
+import tw.gymlife.forum.model.CommentLike;
 import tw.gymlife.member.model.Member;
 
 @Repository

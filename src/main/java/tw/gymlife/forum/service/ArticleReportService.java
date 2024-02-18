@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import jakarta.transaction.Transactional;
 import tw.gymlife.forum.model.ArticleBean;
 import tw.gymlife.forum.model.ArticleReport;
-import tw.gymlife.forum.model.ArticleReportRepository;
+import tw.gymlife.forum.repository.jpa.ArticleReportRepository;
 import tw.gymlife.member.service.MailService;
 
 @Service

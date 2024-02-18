@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import tw.gymlife.forum.model.ArticleBean;
 import tw.gymlife.forum.model.ArticleSave;
-import tw.gymlife.forum.model.ArticleSaveRepository;
+import tw.gymlife.forum.repository.jpa.ArticleSaveRepository;
 import tw.gymlife.member.model.Member;
 
 @Service

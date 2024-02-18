@@ -1,4 +1,4 @@
-package tw.gymlife.forum.model;
+package tw.gymlife.forum.repository.jpa;
 
 import java.util.List;
 
@@ -7,6 +7,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import tw.gymlife.forum.model.ArticleBean;
 
 public interface ArticleRepository extends JpaRepository<ArticleBean, Integer> {
 

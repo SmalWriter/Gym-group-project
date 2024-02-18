@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import tw.gymlife.forum.model.ArticleLike;
-import tw.gymlife.forum.model.ArticleLikeRepository;
-import tw.gymlife.forum.model.ArticleRepository;
+import tw.gymlife.forum.repository.jpa.ArticleLikeRepository;
+import tw.gymlife.forum.repository.jpa.ArticleRepository;
 import tw.gymlife.member.model.MemberRepository;
 
 @Service

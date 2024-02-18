@@ -1,8 +1,10 @@
-package tw.gymlife.forum.model;
+package tw.gymlife.forum.repository.jpa;
 
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import tw.gymlife.forum.model.CommentReport;
 
 public interface CommentReportRepository extends JpaRepository<CommentReport, Integer> {
 

@@ -95,7 +95,6 @@
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-core</artifactId>
-			<version>2.17.1</version>
 		</dependency>
 		<!-- Spring WebSocket -->
 		<!--		<dependency>-->
@@ -142,10 +141,7 @@
 			<artifactId>spring-boot-starter-webflux</artifactId>
 		</dependency>
 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-websocket</artifactId>
-		</dependency>
+		
 
 		<dependency>
 			<groupId>fr.dudie</groupId>
@@ -158,7 +154,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-elasticsearch</artifactId>
 		</dependency>
-		<dependency>
+		<!--<dependency>
 			<groupId>org.elasticsearch</groupId>
 			<artifactId>elasticsearch</artifactId>
 			<version>8.12.1</version>
@@ -167,7 +163,7 @@
 			<groupId>org.elasticsearch.client</groupId>
 			<artifactId>elasticsearch-rest-high-level-client</artifactId>
 			<version>7.17.18</version>
-		</dependency>
+		</dependency> -->
 
 
 	</dependencies>

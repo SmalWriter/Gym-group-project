@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import tw.gymlife.forum.model.ArticleBean;
 import tw.gymlife.forum.model.CommentBean;
-import tw.gymlife.forum.model.CommentRepository;
+import tw.gymlife.forum.repository.jpa.CommentRepository;
 
 @Service
 public class CommentService {

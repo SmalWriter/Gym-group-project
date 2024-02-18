@@ -28,15 +28,15 @@ import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.HttpSession;
+import tw.gymlife.forum.dto.ArticleBeanDto;
+import tw.gymlife.forum.dto.CommentBeanDto;
+import tw.gymlife.forum.dto.CommentResponse;
 import tw.gymlife.forum.model.ArticleBean;
-import tw.gymlife.forum.model.ArticleBeanDto;
 import tw.gymlife.forum.model.ArticleLike;
 import tw.gymlife.forum.model.ArticleReport;
 import tw.gymlife.forum.model.ArticleSave;
 import tw.gymlife.forum.model.CommentBean;
-import tw.gymlife.forum.model.CommentBeanDto;
 import tw.gymlife.forum.model.CommentLike;
-import tw.gymlife.forum.model.CommentResponse;
 import tw.gymlife.forum.service.ArticleLikeService;
 import tw.gymlife.forum.service.ArticleReportService;
 import tw.gymlife.forum.service.ArticleSaveService;

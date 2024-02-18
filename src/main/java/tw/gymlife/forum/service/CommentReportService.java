@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import tw.gymlife.forum.model.CommentReport;
-import tw.gymlife.forum.model.CommentReportRepository;
+import tw.gymlife.forum.repository.jpa.CommentReportRepository;
 
 @Service
 public class CommentReportService {

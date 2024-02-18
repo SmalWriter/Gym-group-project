@@ -1,4 +1,4 @@
-package tw.gymlife.forum.model;
+package tw.gymlife.forum.dto;
 
 import java.util.Date;
 

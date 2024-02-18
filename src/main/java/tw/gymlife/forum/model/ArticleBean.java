@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Date;
+
+import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.format.annotation.DateTimeFormat;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -16,6 +18,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+//import org.springframework.data.annotation.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
@@ -30,6 +33,7 @@ import tw.gymlife.member.model.Member;
 @Data
 @Entity
 @Table(name = "article")
+//@Document(indexName = "blog")
 public class ArticleBean {
 
 	@Id
@@ -42,7 +46,7 @@ public class ArticleBean {
 
 	@Column(name = "articleType")
 	private String articleType; // 文章主題分類
-
+	
 	@Column(name = "articleContent")
 	private String articleContent;
 

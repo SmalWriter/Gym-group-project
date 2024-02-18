@@ -1,4 +1,4 @@
-package tw.gymlife.forum.model;
+package tw.gymlife.forum.repository.jpa;
 
 import java.util.Date;
 import java.util.List;
@@ -12,6 +12,8 @@ import org.springframework.data.repository.query.Param;
 
 import jakarta.persistence.LockModeType;
 import jakarta.transaction.Transactional;
+import tw.gymlife.forum.model.ArticleBean;
+import tw.gymlife.forum.model.CommentBean;
 
 public interface CommentRepository extends JpaRepository<CommentBean, Integer> {
 

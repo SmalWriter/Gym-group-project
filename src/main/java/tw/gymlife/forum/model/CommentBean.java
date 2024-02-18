@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -31,6 +32,7 @@ import tw.gymlife.member.model.Member;
 @Data
 @Entity
 @Table(name = "comment")
+//@Document(indexName = "blog")
 public class CommentBean {
 	
 	@Id
@@ -38,7 +40,7 @@ public class CommentBean {
 	private Integer commentId;
 
 	private String commentContent;
-
+	
 	@Lob
 	private byte[] commentImg;
 

@@ -16,8 +16,8 @@ import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import tw.gymlife.forum.model.CommentBean;
 import tw.gymlife.forum.model.CommentLike;
-import tw.gymlife.forum.model.CommentRepository;
-import tw.gymlife.forum.model.CommentLikeRepository;
+import tw.gymlife.forum.repository.jpa.CommentLikeRepository;
+import tw.gymlife.forum.repository.jpa.CommentRepository;
 import tw.gymlife.member.model.Member;
 import tw.gymlife.member.model.MemberRepository;
 

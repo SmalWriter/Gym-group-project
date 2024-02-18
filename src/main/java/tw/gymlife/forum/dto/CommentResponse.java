@@ -1,6 +1,6 @@
-package tw.gymlife.forum.model;
+package tw.gymlife.forum.dto;
 
-
+import tw.gymlife.forum.model.CommentBean;
 
 public class CommentResponse {
 
