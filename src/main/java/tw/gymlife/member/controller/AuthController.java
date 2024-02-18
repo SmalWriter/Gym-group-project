@@ -16,7 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -32,7 +32,7 @@ import tw.gymlife.member.service.MailService;
 import tw.gymlife.member.service.MemberService;
 import tw.gymlife.member.service.ReCaptchaService;
 
-	@Controller
+@Controller
 	public class AuthController {
 			
 		@Autowired 
@@ -114,13 +114,13 @@ import tw.gymlife.member.service.ReCaptchaService;
 			        return response;
 			    }
 
-			    if (StringUtils.isEmpty(userAccount)) {
+			    if (ObjectUtils.isEmpty(userAccount)) {
 			        response.put("status", "fail");
 			        response.put("message", "請輸入帳號");
 			        return response;
 			    }
 
-			    if (StringUtils.isEmpty(userPassword)) {
+			    if (ObjectUtils.isEmpty(userPassword)) {
 			        response.put("status", "fail");
 			        response.put("message", "請輸入密碼");
 			        return response;
@@ -244,7 +244,7 @@ import tw.gymlife.member.service.ReCaptchaService;
 		      if (member.isPresent()) {
 		    	  
 		    	  // 生成亂數
-		          String verificationCode = String.format("%06d", new Random().nextInt(999999));
+		          String verificationCode = "%06d".formatted(new Random().nextInt(999999));
 		          System.out.println(verificationCode);
 		    	  
 		         // 存取至session,並且限制15分鐘
@@ -298,7 +298,7 @@ import tw.gymlife.member.service.ReCaptchaService;
 
 		     
 
-		      if (!optionalMember.isPresent()) {
+		      if (optionalMember.isEmpty()) {
 		          return new ResponseEntity<>("User not found.", HttpStatus.NOT_FOUND);
 		      }
 

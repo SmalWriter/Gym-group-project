@@ -55,16 +55,16 @@ public class ActivityBackController {
 	
 	//新增活動
 	@PostMapping("/activity/insert")
-	public String insertActivity(@RequestParam("activityName") String activityName,
-	        @RequestParam("activityDate")@DateTimeFormat(pattern = "yyyy-MM-dd") Date activityDate, @RequestParam("activityLocation") String activityLocation,
-	        @RequestParam("activityCategory") String activityCategory,
-	        @RequestParam("activityCover") MultipartFile activityCover,
-	        @RequestParam("registrationStartDate")@DateTimeFormat(pattern = "yyyy-MM-dd") Date registrationStartDate,
-	        @RequestParam("registrationEndDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date registrationEndDate, @RequestParam("organizer") String organizer,
-	        @RequestParam("activityStatus") String activityStatus,
-	        @RequestParam("activityInfo") String activityInfo,
-	        @RequestParam("applicantLimitedQty") Integer applicantLimitedQty,
-	        @RequestParam("activityApplicantsQty") Integer activityApplicantsQty, Model m) throws IOException {
+	public String insertActivity(@RequestParam String activityName,
+	        @RequestParam@DateTimeFormat(pattern = "yyyy-MM-dd") Date activityDate, @RequestParam String activityLocation,
+	        @RequestParam String activityCategory,
+	        @RequestParam MultipartFile activityCover,
+	        @RequestParam@DateTimeFormat(pattern = "yyyy-MM-dd") Date registrationStartDate,
+	        @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date registrationEndDate, @RequestParam String organizer,
+	        @RequestParam String activityStatus,
+	        @RequestParam String activityInfo,
+	        @RequestParam Integer applicantLimitedQty,
+	        @RequestParam Integer activityApplicantsQty, Model m) throws IOException {
 
 	    // 建立新的活動物件並設定屬性
 	    Activity activity = new Activity();
@@ -113,7 +113,7 @@ public class ActivityBackController {
 	// 刪除活動
 	@Transactional
 	@DeleteMapping("/activity/delete")
-	public String deletePost(@RequestParam("activityId") Integer activityId) {
+	public String deletePost(@RequestParam Integer activityId) {
 		aService.deleteActivityByid(activityId);
 		return "redirect:/activity/getAll";
 	}
@@ -136,7 +136,7 @@ public class ActivityBackController {
 //	
 	// 進入更新頁面時獲取活動資訊及活動類型
 	@GetMapping("/activity/update")
-	public String showUpdateForm(@RequestParam("activityId") Integer activityId, Model m) {
+	public String showUpdateForm(@RequestParam Integer activityId, Model m) {
 		Activity activity = aService.getActivityById(activityId);
 		m.addAttribute("activity", activity);
 
@@ -146,17 +146,17 @@ public class ActivityBackController {
 	// 更新活動
 	@Transactional
 	@PostMapping("/activity/update")
-	public String updateActivity(@RequestParam("activityId") Integer activityId,
-			@RequestParam("activityName") String activityName, @RequestParam("activityDate")@DateTimeFormat(pattern = "yyyy-MM-dd")  Date activityDate,
-			@RequestParam("activityLocation") String activityLocation,
-			@RequestParam("activityCategory") String activityCategory,
-			@RequestParam("activityCover") MultipartFile activityCover,
-			@RequestParam("registrationStartDate")@DateTimeFormat(pattern = "yyyy-MM-dd")  Date registrationStartDate,
-			@RequestParam("registrationEndDate")@DateTimeFormat(pattern = "yyyy-MM-dd")  Date registrationEndDate, @RequestParam("organizer") String organizer,
-			@RequestParam("activityStatus") String activityStatus,
-			@RequestParam("activityInfo") String activityInfo,
-			@RequestParam("applicantLimitedQty") Integer applicantLimitedQty,
-			@RequestParam("activityApplicantsQty") Integer activityApplicantsQty, Model m) {
+	public String updateActivity(@RequestParam Integer activityId,
+			@RequestParam String activityName, @RequestParam@DateTimeFormat(pattern = "yyyy-MM-dd")  Date activityDate,
+			@RequestParam String activityLocation,
+			@RequestParam String activityCategory,
+			@RequestParam MultipartFile activityCover,
+			@RequestParam@DateTimeFormat(pattern = "yyyy-MM-dd")  Date registrationStartDate,
+			@RequestParam@DateTimeFormat(pattern = "yyyy-MM-dd")  Date registrationEndDate, @RequestParam String organizer,
+			@RequestParam String activityStatus,
+			@RequestParam String activityInfo,
+			@RequestParam Integer applicantLimitedQty,
+			@RequestParam Integer activityApplicantsQty, Model m) {
 
 		// 檢查活動封面圖片是否存在並且不為空值
 		byte[] activityCoverBytes = null;
@@ -192,7 +192,7 @@ public class ActivityBackController {
 	
 	//處理CKEditor插入圖片 - 上傳圖片進資料庫並取得URL
 	@PostMapping("/activity/api/upload")
-	public ResponseEntity<?> ckEditorUploadImage(@RequestParam("file") MultipartFile file) throws IOException {
+	public ResponseEntity<?> ckEditorUploadImage(@RequestParam MultipartFile file) throws IOException {
 		// 建立一個新的 ActivityImage 物件
 		ActivityImage image = new ActivityImage();
 		
@@ -244,7 +244,7 @@ public class ActivityBackController {
 	// ajax刪除
 	@ResponseBody
 	@DeleteMapping("/activity/api/delete")
-	public List<Activity> deleteAjax(@RequestParam("activityId") Integer activityId, Model m){
+	public List<Activity> deleteAjax(@RequestParam Integer activityId, Model m){
 		aService.deleteActivityByid(activityId);
 		return getAllActivity();
 	}

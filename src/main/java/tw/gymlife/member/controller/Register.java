@@ -84,10 +84,10 @@ public class Register {
 	}
 	
 	@PostMapping("/Register")
-    public String handleRegistration(@Valid  @ModelAttribute("member") Member member,BindingResult bindingResult,
-    		@RequestParam("userAccount") String userAccount,
-    		@RequestParam("userAddressFirst") String userAddressFirst, 
-    		@RequestParam("userAddressDetail") String userAddressDetail,
+    public String handleRegistration(@Valid  @ModelAttribute Member member,BindingResult bindingResult,
+    		@RequestParam String userAccount,
+    		@RequestParam String userAddressFirst, 
+    		@RequestParam String userAddressDetail,
     		Model model,RedirectAttributes redirectAttributes,
     		HttpSession session) {
 		
@@ -183,7 +183,7 @@ public class Register {
 }
 	@GetMapping("/checkUserAccount")
 	@ResponseBody
-	public Map<String, Boolean> checkUserAccount(@RequestParam("userAccount") String userAccount) {
+	public Map<String, Boolean> checkUserAccount(@RequestParam String userAccount) {
 	    
 	    boolean isExist = memberService.checkIfUserAccountExist(userAccount);
 
@@ -193,7 +193,7 @@ public class Register {
 	}
 	
 	@GetMapping("/checkEmailStatus")
-	public String handleEmailVerification(@RequestParam("token") String token, @RequestParam("no") int userId, HttpSession session) {
+	public String handleEmailVerification(@RequestParam String token, @RequestParam("no") int userId, HttpSession session) {
 	    // 从Session或者数据库中获取UUID
 	    String storedToken = (String) session.getAttribute("token");
 	    

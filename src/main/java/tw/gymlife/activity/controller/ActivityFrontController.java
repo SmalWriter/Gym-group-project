@@ -37,7 +37,7 @@ public class ActivityFrontController {
 
 	// 單筆活動詳細資料
 	@GetMapping("/activityDetails")
-	public String getDetails(@RequestParam("activityId") Integer activityId, Model m) {
+	public String getDetails(@RequestParam Integer activityId, Model m) {
 	    // 根據活動ID找到該筆資料
 	    Activity activity = aService.getActivityById(activityId);
 	    
@@ -80,7 +80,7 @@ public class ActivityFrontController {
 	
 	// AJAX API：获取活动地点的经纬度
     @GetMapping("/getActivityLocation")
-    public String getActivityLocation(@RequestParam("activityId") Integer activityId, Model m) {
+    public String getActivityLocation(@RequestParam Integer activityId, Model m) {
         // 根据活动ID找到该笔数据
         Activity activity = aService.getActivityById(activityId);
 

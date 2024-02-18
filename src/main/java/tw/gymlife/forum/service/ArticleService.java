@@ -27,6 +27,10 @@ public class ArticleService {
 	@Autowired
 	private ArticleSaveService articleSaveService;
 
+	public List<ArticleBean> searchArticles(String keyword) {
+		return articleRepository.findByArticleTitleContainingOrArticleContentContaining(keyword);
+	}
+
 	public List<ArticleBean> findSavedArticlesByMember(Member member) {
 		// 這裡假設你已有方法可以獲取所有保存的文章
 		List<ArticleSave> savedArticles = articleSaveService.findAllByMember(member);

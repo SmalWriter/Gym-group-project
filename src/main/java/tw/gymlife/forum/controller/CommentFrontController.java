@@ -114,8 +114,8 @@ public class CommentFrontController {
 
 	// Create a reply
 	@PostMapping("/parent/add/{parentCommentId}")
-	public String addReply(@RequestParam("articleId") Integer articleId, @PathVariable Integer parentCommentId,
-			@RequestParam("commentContent") String commentContent, Model model,HttpSession session) {
+	public String addReply(@RequestParam Integer articleId, @PathVariable Integer parentCommentId,
+			@RequestParam String commentContent, Model model,HttpSession session) {
 		
 		Member member = (Member) session.getAttribute("member");
 		ArticleBean article = articleService.findById(articleId);
@@ -133,8 +133,8 @@ public class CommentFrontController {
 	// Update a reply --ajax
 	@PutMapping("/parent/update/{replyId}")
 	@ResponseBody
-	public CommentBean updateReply(@RequestParam("articleId") Integer articleId, @PathVariable Integer replyId,
-			@RequestParam("commentContent") String commentContent,HttpSession session) {
+	public CommentBean updateReply(@RequestParam Integer articleId, @PathVariable Integer replyId,
+			@RequestParam String commentContent,HttpSession session) {
 		Member member = (Member) session.getAttribute("member");
 		ArticleBean article = articleService.findById(articleId);
 
@@ -148,7 +148,7 @@ public class CommentFrontController {
 
 	// Delete a reply
 	@DeleteMapping("/parent/delete/{replyId}")
-	public String deleteReply(@RequestParam("articleId") Integer articleId, @PathVariable Integer replyId) {
+	public String deleteReply(@RequestParam Integer articleId, @PathVariable Integer replyId) {
 //		Member member = (Member) session.getAttribute("member");
 //		ArticleBean article = articleService.findById(articleId);
 		commentService.deleteReply(replyId);

@@ -32,7 +32,7 @@ public class RegistrationController {
 	public ActivityService aService;
 
 	@GetMapping("/goRegistration")
-	public String showRegistrationForm(@RequestParam("activityId") Integer activityId, HttpSession httpsession, Model m) {
+	public String showRegistrationForm(@RequestParam Integer activityId, HttpSession httpsession, Model m) {
 	    // 判斷是否存在 session
 	    Integer userId = (Integer) httpsession.getAttribute("userId");
 	    
@@ -72,7 +72,7 @@ public class RegistrationController {
 
 
 	@PostMapping("/submitRegistration")
-	public String submitRegistrationForm(@ModelAttribute Registration registration, @RequestParam("activityId") Integer activityId, HttpSession httpsession, Model m) {
+	public String submitRegistrationForm(@ModelAttribute Registration registration, @RequestParam Integer activityId, HttpSession httpsession, Model m) {
 	    // 判斷是否存在 session
 	    Integer userId = (Integer) httpsession.getAttribute("userId");
 
@@ -169,7 +169,7 @@ public class RegistrationController {
 	
 	// 後台-該活動有報名紀錄的會員
 	@GetMapping("/goBackRegistrationRecord") 
-	public String getActivityDetails(@RequestParam("activityId") Integer activityId, Model m) {
+	public String getActivityDetails(@RequestParam Integer activityId, Model m) {
 	    // 根據活動ID獲取活動資訊
 	    Activity activity = aService.getActivityById(activityId);
 

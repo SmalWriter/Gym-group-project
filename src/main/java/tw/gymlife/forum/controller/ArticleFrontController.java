@@ -101,7 +101,7 @@ public class ArticleFrontController {
 	// 進入會員個人文章頁面
 	@GetMapping("/front/memberPersonalPage")
 	public String memberPersonalPage(@RequestParam(name = "p", defaultValue = "1") Integer pageNumber,
-			@RequestParam(value = "pageSize", defaultValue = "3") int pageSize, HttpSession session, Model model) {
+			@RequestParam(defaultValue = "3") int pageSize, HttpSession session, Model model) {
 		Member member = (Member) session.getAttribute("member");
 		if (member != null) {
 			Page<ArticleBean> articles = articleService.findByMemberUserIdOrderByArticleIdDesc(member.getUserId(),
@@ -290,7 +290,7 @@ public class ArticleFrontController {
 	@GetMapping("/front/active/{articleType}")
 	public String listActiveArticlesByType(@PathVariable String articleType,
 			@RequestParam(name = "p", defaultValue = "1") Integer pageNumber,
-			@RequestParam(value = "pageSize", defaultValue = "3") int pageSize, Model model) {
+			@RequestParam(defaultValue = "3") int pageSize, Model model) {
 		Page<ArticleBean> articleBeans = articleService.findActiveArticlesByType(articleType, pageNumber, pageSize);
 		model.addAttribute("articleBeans", articleBeans);
 		return "frontgymlife/forum/articleFrontPage";
@@ -298,8 +298,8 @@ public class ArticleFrontController {
 
 	@GetMapping("/front/active")
 	public String frontForunm(@RequestParam(name = "p", defaultValue = "1") Integer pageNumber,
-			@RequestParam(value = "pageSize", defaultValue = "3") int pageSize,
-			@RequestParam(value = "sort", defaultValue = "newest") String sort, Model model) {
+			@RequestParam(defaultValue = "3") int pageSize,
+			@RequestParam(defaultValue = "newest") String sort, Model model) {
 		Page<ArticleBean> articleBeans = articleService.findActiveArticles(pageNumber, pageSize);
 		for (ArticleBean article : articleBeans) {
 			byte[] photoFile = article.getArticleImg();
@@ -318,8 +318,8 @@ public class ArticleFrontController {
 	@GetMapping("/front/active/json")
 	@ResponseBody
 	public List<ArticleBeanDto> listActiveArticles(@RequestParam(name = "p", defaultValue = "1") Integer pageNumber,
-			@RequestParam(value = "pageSize", defaultValue = "3") int pageSize,
-			@RequestParam(value = "sort", defaultValue = "newest") String sort) {
+			@RequestParam(defaultValue = "3") int pageSize,
+			@RequestParam(defaultValue = "newest") String sort) {
 		Page<ArticleBean> articleBeans;
 		switch (sort) {
 		case "mostViews":
@@ -359,7 +359,7 @@ public class ArticleFrontController {
 	@GetMapping("/front/{articleId}")
 	public String showArticleDetail(@PathVariable Integer articleId,
 			@RequestParam(name = "p", defaultValue = "1") Integer pageNumber,
-			@RequestParam(value = "pageSize", defaultValue = "3") int pageSize, Model model, HttpSession session) {
+			@RequestParam(defaultValue = "3") int pageSize, Model model, HttpSession session) {
 		Integer loggedInUserId = (Integer) session.getAttribute("userId");
 		boolean isLoggedIn = loggedInUserId != null;
 
@@ -462,8 +462,8 @@ public class ArticleFrontController {
 
 	// 實際新增貼文
 	@PostMapping("/front/insert")
-	public String insertArticle(HttpSession session, @RequestParam("articleTitle") String articleTitle,
-			@RequestParam("articleContent") String articleContent, @RequestParam("articleType") String articleType,
+	public String insertArticle(HttpSession session, @RequestParam String articleTitle,
+			@RequestParam String articleContent, @RequestParam String articleType,
 			@RequestParam("articleImg") MultipartFile file, Model model) throws IOException {
 		Member member = (Member) session.getAttribute("member");
 		ArticleBean article = new ArticleBean();
@@ -482,7 +482,7 @@ public class ArticleFrontController {
 
 	// 文章更新的查詢
 	@GetMapping("/front/articleEdit")
-	public String editArticle1(@RequestParam("articleId") Integer articleId, Model model) {
+	public String editArticle1(@RequestParam Integer articleId, Model model) {
 		ArticleBean article = articleService.findById(articleId);
 		model.addAttribute("article", article);
 		return "frontgymlife/forum/articleEdit";
@@ -490,10 +490,10 @@ public class ArticleFrontController {
 
 	// 文章實際更新 (前台更新)
 	@PutMapping("/front/articleEdit")
-	public String editArticle2(@RequestParam("articleId") Integer articleId,
-			@RequestParam("articleType") String articleType, @RequestParam("articleContent") String articleContent,
-			@RequestParam("articleTitle") String articleTitle, Model model,
-			@RequestParam("articleImg") MultipartFile articleImg) {
+	public String editArticle2(@RequestParam Integer articleId,
+			@RequestParam String articleType, @RequestParam String articleContent,
+			@RequestParam String articleTitle, Model model,
+			@RequestParam MultipartFile articleImg) {
 		byte[] byteArr = null;
 		try {
 			byteArr = articleImg.getBytes(); // 将MultipartFile转换为byte[]
@@ -511,7 +511,7 @@ public class ArticleFrontController {
 
 	// 真刪除文章(前台)
 	@DeleteMapping("/front/article/delete")
-	public String deleteArticle(@RequestParam("articleId") Integer articleId, Model model) {
+	public String deleteArticle(@RequestParam Integer articleId, Model model) {
 		articleService.deleteById(articleId);
 		return "redirect:/front/active"; // 回到論壇首頁
 	}
@@ -567,9 +567,9 @@ public class ArticleFrontController {
 	@ResponseBody
 	@PostMapping("/front/article/{articleId}/comment")
 	public List<CommentBeanDto> addCommentAjax(@PathVariable Integer articleId, @RequestParam String commentContent,
-			@RequestParam(value = "commentImg", required = false) MultipartFile commentImg, HttpSession session,
+			@RequestParam(required = false) MultipartFile commentImg, HttpSession session,
 			@RequestParam(name = "p", defaultValue = "1") Integer currentPage,
-			@RequestParam(value = "pageSize", defaultValue = "3") int pageSize) {
+			@RequestParam(defaultValue = "3") int pageSize) {
 
 		Member member = (Member) session.getAttribute("member");
 		ArticleBean article = articleService.findById(articleId);
@@ -629,9 +629,9 @@ public class ArticleFrontController {
 
 	@ResponseBody
 	@PutMapping("/front/comments/editCommentAjax")
-	public CommentBean editMessage(@RequestParam("commentId") Integer commentId,
-			@RequestParam("commentContent") String commentContent,
-			@RequestParam(value = "commentImg", required = false) MultipartFile commentImg) throws IOException {
+	public CommentBean editMessage(@RequestParam Integer commentId,
+			@RequestParam String commentContent,
+			@RequestParam(required = false) MultipartFile commentImg) throws IOException {
 		byte[] imgBytes = commentImg.getBytes();
 		CommentBean commentBean = commentService.updateCommentById(commentId, commentContent, imgBytes);
 		return commentBean;
@@ -643,7 +643,7 @@ public class ArticleFrontController {
 
 	// 刪除留言--真刪除
 	@DeleteMapping("/front/{articleId}/delete")
-	public String deleteArticle(@PathVariable Integer articleId, @RequestParam("commentId") Integer commentId,
+	public String deleteArticle(@PathVariable Integer articleId, @RequestParam Integer commentId,
 			Model model) {
 		commentService.deleteById(commentId);
 		return "redirect:/front/" + articleId; // 一刪除完回到文章頁面
@@ -651,7 +651,7 @@ public class ArticleFrontController {
 
 	// 刪除留言--假刪除
 	@PostMapping("/front/{articleId}/comment/delete")
-	public String deleteArticle2(@PathVariable Integer articleId, @RequestParam("commentId") Integer commentId,
+	public String deleteArticle2(@PathVariable Integer articleId, @RequestParam Integer commentId,
 			Model model) {
 		commentService.disableComment(commentId);
 		return "redirect:/front/" + articleId; // 一刪除完回到文章頁面
@@ -663,7 +663,7 @@ public class ArticleFrontController {
 
 	// 更新-留言查詢：跳轉的方式
 	@GetMapping("/front/comments/edit")
-	public String editComment(@RequestParam("commentId") Integer commentId, Model model) {
+	public String editComment(@RequestParam Integer commentId, Model model) {
 		CommentBean comment = commentService.findById(commentId);
 		ArticleBean article = comment.getArticle();
 		model.addAttribute("article", article);
@@ -675,9 +675,9 @@ public class ArticleFrontController {
 
 	// 更新-留言更新：跳轉的方式
 	@PutMapping("/front/comments/edit")
-	public String editComment2(@RequestParam("commentId") Integer commentId,
-			@RequestParam("commentContent") String commentContent, Model model,
-			@RequestParam("articleId") Integer articleId, @RequestParam("commentImg") MultipartFile commentImg) {
+	public String editComment2(@RequestParam Integer commentId,
+			@RequestParam String commentContent, Model model,
+			@RequestParam Integer articleId, @RequestParam MultipartFile commentImg) {
 		byte[] byteArr = null;
 		try {
 			byteArr = commentImg.getBytes(); // 将MultipartFile转换为byte[]

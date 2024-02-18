@@ -40,9 +40,9 @@ public class ComECPayController {
 	private LinePayService linePayService;
 
 	@PostMapping("/checkoutCom")
-	public String checkOutCom(HttpSession session, @RequestParam("payment") String payment,
-			@RequestParam("orderId") int orderId, @RequestParam("orderUserId") int userId,
-			@RequestParam("orderTime") String orderTime, @RequestParam("orderUuid") String orderUuid,
+	public String checkOutCom(HttpSession session, @RequestParam String payment,
+			@RequestParam int orderId, @RequestParam("orderUserId") int userId,
+			@RequestParam String orderTime, @RequestParam String orderUuid,
 			@RequestParam("orderTotalPrice") String totalPrice, Model model) {
 
 
@@ -87,7 +87,7 @@ public class ComECPayController {
 
 
 	@PostMapping("/getLinePay")
-	public ResponseEntity<Object> getLinePay(HttpSession session,@RequestParam("orderId") int orderId) throws JSONException {
+	public ResponseEntity<Object> getLinePay(HttpSession session,@RequestParam int orderId) throws JSONException {
 
 		orderService.updateOrderCheckStatus(orderId); //更新狀態為已付款
 

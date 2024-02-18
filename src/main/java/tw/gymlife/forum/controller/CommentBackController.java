@@ -59,7 +59,7 @@ public class CommentBackController {
 
 //	// 留言更新的查詢
 	@GetMapping("/comment/edit")
-	public String editComment1(@RequestParam("commentId") Integer commentId, Model model) {
+	public String editComment1(@RequestParam Integer commentId, Model model) {
 		CommentBean comment = commentService.findById(commentId);
 		model.addAttribute("comment", comment);
 		return "backgymlife/forum/commentUpdate";
@@ -67,9 +67,9 @@ public class CommentBackController {
 
 //	// 留言實際更新 (後台更新)
 	@PutMapping("/comment/edit")
-	public String editComment2(@RequestParam("commentId") Integer commentId,
-			@RequestParam("commentContent") String commentContent, Model model,
-			@RequestParam("commentImg") MultipartFile commentImg) {
+	public String editComment2(@RequestParam Integer commentId,
+			@RequestParam String commentContent, Model model,
+			@RequestParam MultipartFile commentImg) {
 		byte[] byteArr = null;
 		try {
 			byteArr = commentImg.getBytes(); // 将MultipartFile转换为byte[]
@@ -85,8 +85,8 @@ public class CommentBackController {
 //
 //	// 修改留言狀態
 	@PutMapping("/comment/status")
-	public String updateCommentStatus(@RequestParam("commentId") Integer commentId,
-			@RequestParam("status") String status, Model model) {
+	public String updateCommentStatus(@RequestParam Integer commentId,
+			@RequestParam String status, Model model) {
 		CommentBean comment = commentService.updateCommentStatus(commentId, status);
 		model.addAttribute("comment", comment);
 		return "redirect:/comment/page";
@@ -96,7 +96,7 @@ public class CommentBackController {
 
 	// 真刪除
 	@DeleteMapping("/comment/delete")
-	public String deleteComment(@RequestParam("commentId") Integer commentId, Model model) {
+	public String deleteComment(@RequestParam Integer commentId, Model model) {
 		commentService.deleteById(commentId);
 		return "redirect:/comment/page"; // 一刪除完回到這一個頁面
 	}

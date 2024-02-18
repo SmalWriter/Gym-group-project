@@ -3,7 +3,6 @@ package tw.gymlife.member.service;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -16,7 +15,6 @@ public class MailService {
  
     private JavaMailSender mailSender;
  
-    @Autowired
     public MailService(JavaMailSender mailSender) {
         this.mailSender = mailSender;
     }

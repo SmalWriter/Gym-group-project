@@ -85,7 +85,7 @@ public class MemberService {
 			String userAddress,Date userBirthDay, String userTel, String userEmail, String userNickName, byte[] userPhoto ) {
 		Optional<Member> memberOptional = memberRepo.findById(userId);
 
-        if (!memberOptional.isPresent()) {
+        if (memberOptional.isEmpty()) {
             // Handle the case where the Member with the given userId does not exist
         }
 
@@ -107,7 +107,7 @@ public class MemberService {
 	
 	public Member updateUserStatus(int userId, int userStatus) {
 		Optional<Member> memberOptional = memberRepo.findById(userId);
-		  if (!memberOptional.isPresent()) {
+		  if (memberOptional.isEmpty()) {
 			  return null;
 	        }
 	

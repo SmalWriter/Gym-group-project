@@ -66,14 +66,14 @@ public class CourseController_Back {
 	//新增教練
 	@ResponseBody
 	@PostMapping("/course/coach/insert")
-	public List<CoachBean> insertCourseCoach(@RequestParam("coachName") String coachName,
-			@RequestParam("coachNickName") String coachNickName,
-			@RequestParam("coachPhoneNumber") String coachPhoneNumber,
-			@RequestParam("coachEmail") String coachEmail,
-			@RequestParam("coachBirthday") String coachBirthday,
-			@RequestParam("coachHeight") Integer coachHeight,
-			@RequestParam("coachWeight") Integer coachWeight,
-			@RequestParam("coachIntroduce") String coachIntroduce,
+	public List<CoachBean> insertCourseCoach(@RequestParam String coachName,
+			@RequestParam String coachNickName,
+			@RequestParam String coachPhoneNumber,
+			@RequestParam String coachEmail,
+			@RequestParam String coachBirthday,
+			@RequestParam Integer coachHeight,
+			@RequestParam Integer coachWeight,
+			@RequestParam String coachIntroduce,
 			@RequestParam("coachImg") MultipartFile image,Model m)
 			throws IOException {
 		
@@ -109,28 +109,28 @@ public class CourseController_Back {
 	//查詢教練ById
 	@ResponseBody
 	@GetMapping("/course/coachbyid")
-	public CoachBean selectCoachById(@RequestParam("coachId") Integer coachId) {
+	public CoachBean selectCoachById(@RequestParam Integer coachId) {
 		CoachBean chbean = chservice.selectCoachById(coachId);
 		return chbean;
 	}
 	//修改教練
 	@ResponseBody
 	@PutMapping("/course/coach/update")
-	public List<CoachBean> updateCourse(@RequestParam("coachId") Integer coachId,@RequestParam("coachName") String coachName,
-			@RequestParam("coachNickName") String coachNickName,
-			@RequestParam("coachPhoneNumber") String coachPhoneNumber,
-			@RequestParam("coachEmail") String coachEmail,
-			@RequestParam("coachBirthday") String coachBirthday,
-			@RequestParam("coachHeight") Integer coachHeight,
-			@RequestParam("coachWeight") Integer coachWeight,
-			@RequestParam("coachIntroduce") String coachIntroduce, Model m) {
+	public List<CoachBean> updateCourse(@RequestParam Integer coachId,@RequestParam String coachName,
+			@RequestParam String coachNickName,
+			@RequestParam String coachPhoneNumber,
+			@RequestParam String coachEmail,
+			@RequestParam String coachBirthday,
+			@RequestParam Integer coachHeight,
+			@RequestParam Integer coachWeight,
+			@RequestParam String coachIntroduce, Model m) {
 		chservice.updateCourseCoach(coachId, coachName,coachNickName, coachPhoneNumber,coachEmail,coachBirthday, coachWeight, coachHeight, coachIntroduce);
 		return selectAllCourseajax();
 	}
 	//刪除教練
 	@ResponseBody
 	@DeleteMapping("/course/coach/delete")
-	public List<CoachBean> deleteCourse(@RequestParam("coachId") Integer coachId, Model m) {
+	public List<CoachBean> deleteCourse(@RequestParam Integer coachId, Model m) {
 		chservice.deleteCoach(coachId);
 		return selectAllCourseajax();
 	}
@@ -148,7 +148,7 @@ public class CourseController_Back {
 		// 修改教練圖片
 		@ResponseBody
 		@PutMapping("/course/updatecoachImg")
-		public List<CoachBean> updateCourseImg(@RequestParam("coachId") Integer coachId, @RequestParam("coachImg") MultipartFile image)
+		public List<CoachBean> updateCourseImg(@RequestParam Integer coachId, @RequestParam("coachImg") MultipartFile image)
 				throws IOException {
 			chservice.updateCoachImg(coachId, image.getBytes());
 			return selectAllCourseajax();
@@ -156,10 +156,10 @@ public class CourseController_Back {
 	// 新增課程
 		@ResponseBody
 	@PostMapping("/course/insert")
-	public List<CourseDTO> insertCourse(@RequestParam("coachId") Integer coachId,
-			@RequestParam("courseName") String courseName,
-			@RequestParam("courseCost") int courseCost,
-			@RequestParam("courseIntroduce") String courseIntroduce, MultipartHttpServletRequest request, Model m)
+	public List<CourseDTO> insertCourse(@RequestParam Integer coachId,
+			@RequestParam String courseName,
+			@RequestParam int courseCost,
+			@RequestParam String courseIntroduce, MultipartHttpServletRequest request, Model m)
 			throws IOException {
 		CourseBean cbean = new CourseBean();
 		cbean.setCourseName(courseName);
@@ -208,18 +208,18 @@ public class CourseController_Back {
 	// 查詢課程ById
 	@ResponseBody
 	@GetMapping("/course/find")
-	public CourseDTO selectCourseById(@RequestParam("courseId") Integer courseId) {
+	public CourseDTO selectCourseById(@RequestParam Integer courseId) {
 		CourseBean cbean = cservice.selectCourseById(courseId);
 		return convertDTO.convertCourseDTO(cbean);
 	}
 	// 修改課程
 	@ResponseBody
 	@PutMapping("/course/update")
-	public List<CourseDTO> updateCourse(@RequestParam("coachId") Integer coachId,
-			@RequestParam("courseId") Integer courseId,
-			@RequestParam("courseName") String courseName,
-			@RequestParam("courseCost") Integer courseCost,
-			@RequestParam("courseIntroduce") String courseIntroduce, Model m) {
+	public List<CourseDTO> updateCourse(@RequestParam Integer coachId,
+			@RequestParam Integer courseId,
+			@RequestParam String courseName,
+			@RequestParam Integer courseCost,
+			@RequestParam String courseIntroduce, Model m) {
 		CoachBean chbean = chservice.selectCoachById(coachId);
 		cservice.updateCourse(chbean,courseId, courseName,  courseIntroduce, courseCost);
 		return findAllCourseajax();
@@ -228,7 +228,7 @@ public class CourseController_Back {
 	// 刪除課程
 	@ResponseBody
 	@DeleteMapping("/course/delete")
-	public List<CourseDTO> deleteCourseById(@RequestParam("courseId") Integer courseId, Model m) {
+	public List<CourseDTO> deleteCourseById(@RequestParam Integer courseId, Model m) {
 		cservice.deleteCourse(courseId);
 //		return selectAllCourse(m);
 		return findAllCourseajax();
@@ -236,7 +236,7 @@ public class CourseController_Back {
 	// 刪除課程圖片
 	@ResponseBody
 	@DeleteMapping("/course/deleteImg")
-	public CourseDTO deleteCourseImg(@RequestParam("imageId") Integer imageId,@RequestParam("courseId") Integer courseId) {
+	public CourseDTO deleteCourseImg(@RequestParam Integer imageId,@RequestParam Integer courseId) {
 		iservice.deleteCourseImg(imageId);
 		return selectCourseById(courseId);
 	}
@@ -256,7 +256,7 @@ public class CourseController_Back {
 	// 新增課程圖片
 	@ResponseBody
 	@PostMapping("/course/insertImg")
-	public CourseDTO insertCourseImg(@RequestParam("courseId") Integer courseId,
+	public CourseDTO insertCourseImg(@RequestParam Integer courseId,
 			@RequestParam("courseImg") MultipartFile image) throws IOException {
 		System.out.println(courseId);
 		CourseBean cbean = cservice.selectCourseById(courseId);
@@ -287,7 +287,7 @@ public class CourseController_Back {
 		//修改訂單數量
 		@ResponseBody
 		@PutMapping("/course/corder/update")
-		public List<CourseDTO> updateCorder(@RequestParam(name="corderId")Integer corderId,@RequestParam(name="corderQuantity")Integer corderQuantity,@RequestParam(name="corderCost")Integer corderCost) throws MessagingException {
+		public List<CourseDTO> updateCorder(@RequestParam Integer corderId,@RequestParam Integer corderQuantity,@RequestParam Integer corderCost) throws MessagingException {
 			System.out.println(corderId);
 			System.out.println(corderQuantity);
 			// 建立 SimpleDateFormat 物件，指定日期時間的格式
@@ -326,7 +326,7 @@ public class CourseController_Back {
 		//刪除訂單
 		@ResponseBody
 		@DeleteMapping("/course/corder/delete")
-		public List<CourseDTO> deleteCorder(@RequestParam("corderId")Integer corderId) {
+		public List<CourseDTO> deleteCorder(@RequestParam Integer corderId) {
 			oservice.deleteCorder(corderId);
 			return selectAllCorder();
 		}

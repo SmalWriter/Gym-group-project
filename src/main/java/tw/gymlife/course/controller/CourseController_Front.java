@@ -88,9 +88,9 @@ public class CourseController_Front {
 	// 綠界付款+新增訂單
 	@ResponseBody
 	@PostMapping("/ecpayCheckout")
-	public String ecpayCheckout(@RequestParam("userId") Integer userId, @RequestParam("courseId") Integer courseId,
-			@RequestParam("corderPayment") String corderPayment, @RequestParam("corderQuantity") Integer corderQuantity,
-			@RequestParam("corderCost") Integer corderCost, @RequestParam("courseName") String courseName) {
+	public String ecpayCheckout(@RequestParam Integer userId, @RequestParam Integer courseId,
+			@RequestParam String corderPayment, @RequestParam Integer corderQuantity,
+			@RequestParam Integer corderCost, @RequestParam String courseName) {
 		String aioCheckOutALLForm = oservice.ecpayCheckout(userId, courseId, corderPayment, corderQuantity, corderCost,
 				courseName);
 
@@ -100,9 +100,9 @@ public class CourseController_Front {
 
 	// 查詢訂單結果
 	@GetMapping("/front/coursecoder/complete")
-	public String findCorderEnter(@RequestParam("MerchantTradeNo") String MerchantTradeNo ,HttpSession session,@RequestParam("userId") Integer userId, @RequestParam("courseId") Integer courseId,
-			@RequestParam("corderPayment") String corderPayment, @RequestParam("corderQuantity") Integer corderQuantity,
-			@RequestParam("corderCost") Integer corderCost) throws MessagingException {
+	public String findCorderEnter(@RequestParam String MerchantTradeNo ,HttpSession session,@RequestParam Integer userId, @RequestParam Integer courseId,
+			@RequestParam String corderPayment, @RequestParam Integer corderQuantity,
+			@RequestParam Integer corderCost) throws MessagingException {
 		AllInOne all = new AllInOne("");
 		QueryTradeInfoObj obj = new QueryTradeInfoObj();
 		obj.setMerchantTradeNo(MerchantTradeNo);
@@ -250,7 +250,7 @@ public class CourseController_Front {
 	// 查詢單筆會員 ajax
 	@ResponseBody
 	@GetMapping("/course/cordermember")
-	public Member findmemberById(@RequestParam(name = "userId") Integer userId) throws ParseException {
+	public Member findmemberById(@RequestParam Integer userId) throws ParseException {
 		Member member = oservice.selectMemberByuserId(userId);
 		return member;
 	}
@@ -258,7 +258,7 @@ public class CourseController_Front {
 	// 查詢課程ByIdAjax
 	@ResponseBody
 	@GetMapping("/front/coursesingle/select")
-	public CourseDTO cousesingle(@RequestParam(name = "courseId") Integer courseId) {
+	public CourseDTO cousesingle(@RequestParam Integer courseId) {
 		CourseBean cbean = cservice.selectCourseById(courseId);
 		cservice.insertCourseViewers(courseId);
 		CourseDTO cdto = converDTO.convertCourseDTO(cbean);
@@ -268,7 +268,7 @@ public class CourseController_Front {
 
 	// 查詢課程ById(跳轉到購買課程)
 	@GetMapping("/course/buy")
-	public String buyCourseById(@RequestParam("courseId") Integer courseId, HttpSession session, Model model) {
+	public String buyCourseById(@RequestParam Integer courseId, HttpSession session, Model model) {
 		if (session.getAttribute("userId") != null) {
 			int userId = Integer.parseInt(session.getAttribute("userId").toString());
 			CourseBean cbean = cservice.selectCourseById(courseId);
@@ -308,7 +308,7 @@ public class CourseController_Front {
 	//修改訂單狀態
 			@ResponseBody
 			@PutMapping("/course/corder/state")
-			public CourseDTO updateCorder(@RequestParam(name="corderId")Integer corderId,@RequestParam(name="corderState")Integer corderState,HttpSession session) {
+			public CourseDTO updateCorder(@RequestParam Integer corderId,@RequestParam Integer corderState,HttpSession session) {
 				oservice.updateCorderState(corderId, corderState);
 				return selectMemberCorderAjax(session);
 			}

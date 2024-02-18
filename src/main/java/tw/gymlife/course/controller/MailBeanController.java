@@ -26,7 +26,7 @@ public class MailBeanController {
 	//新增未讀訊息
 	@ResponseBody
 	@PostMapping("/mail/insert")
-	public void insertMail(@RequestParam("mailType")String mailType,@RequestParam("mail")String mail) {
+	public void insertMail(@RequestParam String mailType,@RequestParam String mail) {
 		MailBean mailbean = new MailBean();
 		mailbean.setMailType(mailType);
 		mailbean.setMail(mail);
@@ -35,7 +35,7 @@ public class MailBeanController {
 	//已讀訊息
 	@ResponseBody
 	@PutMapping("/mail/read")
-	public void updateMailNotRead(@RequestParam("mailId")Integer mailId) {
+	public void updateMailNotRead(@RequestParam Integer mailId) {
 		System.out.println(mailId);
 		mservice.updateMailNotRead(mailId);
 	}

@@ -67,16 +67,16 @@ import jakarta.servlet.http.HttpSession;
 		
 		 @ResponseBody
 		 @PostMapping("/userInfo")
-		    public ResponseEntity<Member> updateUserDetails(@RequestParam("userId") int userId,
-		    		@RequestParam("userAccount") String userAccount,
-		    		@RequestParam("userName") String userName,
-		    		@RequestParam("userGender") String userGender,
-		    		@RequestParam("userBirthDay") @DateTimeFormat(pattern="yyyy-MM-dd") Date userBirthDay,
-		    		@RequestParam("userAddress") String userAddress,
-		    		@RequestParam("userTel") String userTel,
-		    		@RequestParam("userEmail") String userEmail,
-		    		@RequestParam("userNickName") String userNickName,
-		    		@RequestParam("userPhoto") MultipartFile userPhoto,
+		    public ResponseEntity<Member> updateUserDetails(@RequestParam int userId,
+		    		@RequestParam String userAccount,
+		    		@RequestParam String userName,
+		    		@RequestParam String userGender,
+		    		@RequestParam @DateTimeFormat(pattern="yyyy-MM-dd") Date userBirthDay,
+		    		@RequestParam String userAddress,
+		    		@RequestParam String userTel,
+		    		@RequestParam String userEmail,
+		    		@RequestParam String userNickName,
+		    		@RequestParam MultipartFile userPhoto,
 		    		HttpSession httpSession,
 		    		Model model) {
 		       
@@ -128,7 +128,7 @@ import jakarta.servlet.http.HttpSession;
 		 
 			
 			 @GetMapping("/userPhoto/{userId}")
-			 public ResponseEntity<byte[]> getUserPhoto(@PathVariable("userId") int userId) {
+			 public ResponseEntity<byte[]> getUserPhoto(@PathVariable int userId) {
 			     Member member = memberService.findById(userId).orElse(null);
 			     if (member != null && member.getUserPhoto() != null) {
 			         return ResponseEntity.ok()

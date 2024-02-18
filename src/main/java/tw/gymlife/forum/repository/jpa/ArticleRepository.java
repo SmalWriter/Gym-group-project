@@ -7,6 +7,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import tw.gymlife.forum.model.ArticleBean;
 
@@ -35,9 +36,9 @@ public interface ArticleRepository extends JpaRepository<ArticleBean, Integer> {
 
     Page<ArticleBean> findByStatusOrderByArticleTimeAsc(String status, Pageable pageable);
 
-    
-    // 為推薦功能添加的方法，需要根據你的推薦算法來實現
-   //  Page<ArticleBean> findByStatusAndRecommended(String status, Pageable pageable);
-    
+    //模糊查詢
+ // 使用LIKE实现模糊搜索
+    @Query("SELECT a FROM ArticleBean a WHERE a.articleTitle LIKE %?1% OR a.articleContent LIKE %?1%")
+    List<ArticleBean> findByArticleTitleContainingOrArticleContentContaining(String keyword);
 
 }

@@ -78,9 +78,9 @@ public class ComBackController {
 
 	// 新增
 	@PostMapping("/addItem.func")
-	public String getAddItemFunc(@RequestParam("comName") String comName, @RequestParam("comNumber") int comNumber,
-			@RequestParam("comPrice") int comPrice, @RequestParam("comType") String comType,
-			@RequestParam("comStatus") String comStatus, @RequestParam("comContent") String comContent, Model model,
+	public String getAddItemFunc(@RequestParam String comName, @RequestParam int comNumber,
+			@RequestParam int comPrice, @RequestParam String comType,
+			@RequestParam String comStatus, @RequestParam String comContent, Model model,
 			MultipartHttpServletRequest request) {
 //		String virLoc = request.getServletContext().getRealPath("/WEB-INF/resource/IMG");
 
@@ -152,8 +152,8 @@ public class ComBackController {
 	// 修改單張圖片
 	@Transactional
 	@PutMapping("/editOnePic.func")
-	public ResponseEntity<Object> getEditItemPicFunc(@RequestParam("imageId") int imageId,
-			@RequestParam("comId") int comId, MultipartHttpServletRequest request) {
+	public ResponseEntity<Object> getEditItemPicFunc(@RequestParam int imageId,
+			@RequestParam int comId, MultipartHttpServletRequest request) {
 
 		try {
 			MultipartFile comPicPart = request.getFile("imageFile");
@@ -236,7 +236,7 @@ public class ComBackController {
 
 	// 關鍵字查詢
 	@PostMapping("/checkByKeyword.func")
-	public String getCheckByKeyword(@RequestParam("keywords") String keywords, Model model) {
+	public String getCheckByKeyword(@RequestParam String keywords, Model model) {
 
 		List<CommodityDTO> comDTOList = new ArrayList<>();
 		try {
@@ -388,7 +388,7 @@ public class ComBackController {
 
 	// 將圖表輸出成圖檔
 	@PostMapping("/importImg.func")
-	public ResponseEntity<Object> getrImportImg(@RequestParam("image") String image) {
+	public ResponseEntity<Object> getrImportImg(@RequestParam String image) {
 
 		System.out.println("image: " + image);
 		String base64Data = image.substring(image.indexOf(',') + 1);

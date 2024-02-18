@@ -134,7 +134,7 @@ public class ArticleBackController {
 
 	// 文章更新的查詢
 	@GetMapping("/forum/edit")
-	public String editArticle1(@RequestParam("articleId") Integer articleId, Model model) {
+	public String editArticle1(@RequestParam Integer articleId, Model model) {
 		ArticleBean article = articleService.findById(articleId);
 		model.addAttribute("article", article);
 		return "backgymlife/forum/articleUpdate";
@@ -142,10 +142,10 @@ public class ArticleBackController {
 
 	// 文章實際更新 (後台更新)
 	@PutMapping("/forum/edit")
-	public String editArticle2(@RequestParam("articleId") Integer articleId,
-			@RequestParam("articleType") String articleType, @RequestParam("articleContent") String articleContent,
-			@RequestParam("articleTitle") String articleTitle, Model model,
-			@RequestParam("articleImg") MultipartFile articleImg) {
+	public String editArticle2(@RequestParam Integer articleId,
+			@RequestParam String articleType, @RequestParam String articleContent,
+			@RequestParam String articleTitle, Model model,
+			@RequestParam MultipartFile articleImg) {
 		byte[] byteArr = null;
 		try {
 			byteArr = articleImg.getBytes(); // 将MultipartFile转换为byte[]
@@ -163,7 +163,7 @@ public class ArticleBackController {
 
 	// 修改文章狀態
 	@PutMapping("/forum/status")
-	public String updateStatus(@RequestParam("articleId") Integer articleId, @RequestParam("status") String status,
+	public String updateStatus(@RequestParam Integer articleId, @RequestParam String status,
 			Model model) {
 		ArticleBean article = articleService.updateArticleStatus(articleId, status);
 		model.addAttribute("article", article);
@@ -174,7 +174,7 @@ public class ArticleBackController {
 
 	// 真刪除
 	@DeleteMapping("/forum/delete")
-	public String deleteArticle(@RequestParam("articleId") Integer articleId, Model model) {
+	public String deleteArticle(@RequestParam Integer articleId, Model model) {
 		articleService.deleteById(articleId);
 		return "redirect:/forum/page"; // 一刪除完回到這一個頁面
 	}

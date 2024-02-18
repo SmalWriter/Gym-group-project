@@ -88,7 +88,7 @@ public class ComFrontController {
 
 	// 關鍵字查詢
 	@GetMapping("/userCheckByKeyWord.func")
-	public String getKeywordListPage(Model m, @RequestParam("keywords") String keywords) {
+	public String getKeywordListPage(Model m, @RequestParam String keywords) {
 
 		List<CommodityDTO> comDTOList = new ArrayList<>();
 		try {
@@ -156,7 +156,7 @@ public class ComFrontController {
 	/*------------shop單筆商品頁功能開始------------*/
 	// 單筆資訊
 	@GetMapping("/com/{comId}")
-	public String getComDetails(@PathVariable("comId") Integer comId, Model m) {
+	public String getComDetails(@PathVariable Integer comId, Model m) {
 
 		List<CommodityDTO> comDTOList = new ArrayList<>();
 
@@ -184,7 +184,7 @@ public class ComFrontController {
 	/*------------shop單筆商品頁功能結束------------*/
 	// 關鍵字查詢(JS)
 	@GetMapping("/userCheckByKeyWord.fun")
-	public ResponseEntity<Object> getKeywordListPageJS(Model m, @RequestParam("keywords") String keywords) {
+	public ResponseEntity<Object> getKeywordListPageJS(Model m, @RequestParam String keywords) {
 
 		List<CommodityDTO> comDTOList = new ArrayList<>();
 		try {
@@ -238,7 +238,7 @@ public class ComFrontController {
 
 	// 加入購物車
 	@PostMapping("/userAddCart.func")
-	public ResponseEntity<Object> getUserAddCart(@RequestParam("comId") int comId,
+	public ResponseEntity<Object> getUserAddCart(@RequestParam int comId,
 			@RequestParam("itemNumber") int itemNum, HttpSession session, HttpServletRequest request, Model model) {
 
 		try {
@@ -274,7 +274,7 @@ public class ComFrontController {
 
 	// 刪除購物車商品
 	@PostMapping(path = "/getRemoveCart.func")
-	public String getRemoveCart(HttpSession session, @RequestParam("comId") int comId, HttpServletRequest request,
+	public String getRemoveCart(HttpSession session, @RequestParam int comId, HttpServletRequest request,
 			Model model) {
 
 //			String path = request.getServletContext().getRealPath("/WEB-INF/resource/Cart"); //取得路徑
@@ -306,7 +306,7 @@ public class ComFrontController {
 
 	// 購物車按下結帳後生成訂單並跳轉訂單頁面
 	@PostMapping("/getOrder.func")
-	public String testAjax(@RequestParam("comId") List<Integer> comIds, @RequestParam("totalPrice") String totalPrice,
+	public String testAjax(@RequestParam("comId") List<Integer> comIds, @RequestParam String totalPrice,
 			@RequestParam("itemNum") List<Integer> itemNums, HttpSession session, Model model) {
 
 		// 生成訂單
@@ -424,7 +424,7 @@ public class ComFrontController {
 	
 	//綠界call Back函數
 	@GetMapping("/payBackorder.func")
-	public String getECCallBack(HttpSession session, Model model, @RequestParam("orderId") int orderID,@RequestParam("uuid") String uuid) {
+	public String getECCallBack(HttpSession session, Model model, @RequestParam("orderId") int orderID,@RequestParam String uuid) {
 		
 		int userId = (int) session.getAttribute("userId");
 		orderService.updateOrderCheckStatus(orderID); // 更新狀態為已付款
@@ -501,7 +501,7 @@ public class ComFrontController {
 
 	// LinePAY CALL BACK
 	@RequestMapping("/confirm")
-	public String handleLinePayConfirm(@RequestParam("transactionId") String transactionId, HttpSession session,
+	public String handleLinePayConfirm(@RequestParam String transactionId, HttpSession session,
 			Model model) throws JSONException {
 		// 在这里处理LinePay的confirmURL回调逻辑
 		// 解析请求体，处理支付结果等操作
