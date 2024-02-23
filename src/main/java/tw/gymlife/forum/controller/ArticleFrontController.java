@@ -71,11 +71,12 @@ public class ArticleFrontController {
 	@Autowired
 	private MailService mailService;
 
-	@GetMapping("/article/search")
-	public ResponseEntity<List<ArticleBean>> searchApiArticles(@RequestParam("keyword") String keyword) {
-	    List<ArticleBean> articles = articleService.searchArticles(keyword);
-	    return ResponseEntity.ok(articles);
-	}
+	// fuzzy search function
+//	@GetMapping("/article/search")
+//	public ResponseEntity<List<ArticleBean>> searchApiArticles(@RequestParam("keyword") String keyword) {
+//	    List<ArticleBean> articles = articleService.searchArticles(keyword);
+//	    return ResponseEntity.ok(articles);
+//	}
 	
 	// 個人文章收藏頁面
 	@GetMapping("/articleSave/page")

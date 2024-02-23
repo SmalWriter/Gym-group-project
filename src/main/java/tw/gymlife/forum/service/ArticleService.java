@@ -27,6 +27,7 @@ public class ArticleService {
 	@Autowired
 	private ArticleSaveService articleSaveService;
 
+	// fuzzy search function
 	public List<ArticleBean> searchArticles(String keyword) {
 		return articleRepository.findByArticleTitleContainingOrArticleContentContaining(keyword);
 	}
