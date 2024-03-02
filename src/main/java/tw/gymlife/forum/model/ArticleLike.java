@@ -14,25 +14,21 @@ import tw.gymlife.member.model.Member;
 
 @Data
 @Entity
-@Table(name="articlelike")
+@Table(name = "articlelike")
 public class ArticleLike {
 
-  @Id
-  @GeneratedValue(strategy=GenerationType.IDENTITY)
-  private Integer articleLikeId;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer articleLikeId;
 
-  private int liked;
-  
-  @ManyToOne
-  @JoinColumn(name = "userId")
-  private Member member;
+	private int liked;
 
-  @ManyToOne
-  @JoinColumn(name = "articleId")
-  private ArticleBean article;
+	@ManyToOne
+	@JoinColumn(name = "userId")
+	private Member member;
 
+	@ManyToOne
+	@JoinColumn(name = "articleId")
+	private ArticleBean article;
 
-  
-  
 }
-
