@@ -2,6 +2,7 @@
 <section name="Workbench">
 	<section name="MavenProjectImportWizardPage">
 		<list key="rootDirectory">
+			<item value="/Users/liwenxiang/Desktop/group/Gym-group-project"/>
 			<item value="D:\fitness\gymproject"/>
 		</list>
 		<list key="projectNameTemplate">
